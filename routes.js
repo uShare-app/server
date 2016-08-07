@@ -34,6 +34,7 @@ app.use(function (req, res, next)
 function routes(callback)
 {
 	app.post('/file/upload', multer.single('file'), file.upload);
+	app.get('/:shortname', file.view);
 
 	app.listen(config.port, callback);
 }

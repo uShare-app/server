@@ -1,7 +1,9 @@
+const path = require('path');
+
 const chance = require('chance');
+
 const config = require('../config.json');
 const File = require('../models/file');
-const Stats = require('../models/stats');
 
 /* getRandomShortName return through the callback a short name
  * according to the configuration file.
@@ -83,20 +85,35 @@ function upload(req, res)
 			}
 
 			res.status(200).send(config.url + '/' + shortName);
-
-			Stats.findOne(function(err, document)
-			{
-				if (err) return;
-
-				if (!document) return;
-
-				++document.files.available;
-				++document.files.total;
-				document.save(function(){});
-			});
-
 		});
 	});
 }
 
-module.exports = { upload };
+function view(req, res)
+{
+	File.findOne({ shortName: req.params.shortname }, function(err, document)
+	{
+		if (err)
+		{
+			res.status(500).send('An error occurred.');
+			return;
+		}
+
+		if (!document)
+		{
+			res.status(404).send('Document not found.');
+			return;
+		}
+
+		const options = {};
+		options.lastModified = false;
+		options.headers =
+		{
+			'Content-Disposition': `inline; filename="${document.originalFileName}"`,
+			'Content-Type': document.mimetype,
+		};
+		res.status(200).sendFile(path.resolve(document.path), options);
+	});
+}
+
+module.exports = { upload, view };
