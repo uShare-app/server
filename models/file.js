@@ -10,6 +10,8 @@ const FileSchema = new Mongoose.Schema(
 	mimetype: String,
 	extension: String,
 	size: Number, // In bytes
+	senderid: String,
+	senderip: String,
 	views:
 	{
 		type: Number,
@@ -25,7 +27,6 @@ const FileSchema = new Mongoose.Schema(
 		type: Date,
 		default: Date.now,
 	},
-	senderid: String,
 	available: 
 	{
 		type: Boolean,

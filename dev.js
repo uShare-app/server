@@ -14,18 +14,18 @@ nodemon.on('start', function()
 {
 	if (first)
 	{
-		console.log('Uplimg\'s server started in development mode.'.green);
+		console.log('Uplimg\'s server started in development mode.'.yellow);
 		first = 0;
 	}
 });
 
 nodemon.on('quit', function()
 {
-	console.log('Exiting Uplimg\'s server.'.green);
+	console.log('Exiting Uplimg\'s server.'.yellow);
 	process.exit(0);
 });
 
 nodemon.on('restart', function(files)
 {
-	console.log('Uplimg\'s server restarted due to:', files);
+	console.log('Uplimg\'s server restarted due to:'.yellow, files);
 });

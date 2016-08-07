@@ -72,6 +72,7 @@ function upload(req, res)
 		fileData.extension = file.extension; // ?
 		fileData.size = file.size;
 		fileData.senderid = req.body.senderid;
+		fileData.senderip = req.ip;
 
 		fileData.save(function (err, fileData)
 		{

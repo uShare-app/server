@@ -1,3 +1,5 @@
+const config = require('./config.json');
+
 const express = require('express');
 const app = express();
 
@@ -12,7 +14,7 @@ const storage = multer_.diskStorage(
 	{
 		cb(null, 'data/');
 	}
-})
+});
 const multer = multer_({ dest: 'data/', storage });
 
 const file = require('./controllers/file');
@@ -29,14 +31,12 @@ app.use(function (req, res, next)
 	next();
 });
 
-function routes()
+function routes(callback)
 {
 	app.post('/file/upload', multer.single('file'), file.upload);
+
+	app.listen(config.port, callback);
 }
 
-app.listen(8000, function ()
-{
-  console.log('Working on port 8000');
-});
 
 module.exports = routes;
