@@ -35,8 +35,8 @@ app.use(function (req, res, next)
 
 const middlewareAPI = function(req, res, next)
 {
-    req.isApi = true;
-    next();
+	req.isApi = true;
+	next();
 }
 
 function routes(callback)
@@ -44,10 +44,10 @@ function routes(callback)
 	app.post('/file/upload', multer.single('file'), file.upload);
 	app.get('/:shortname', file.view);
 	if (config.features.stats)
-    {
+	{
 		app.get('/info/stats', stats.show);
-        app.get('/api/info/stats', middlewareAPI, stats.show);
-    }
+		app.get('/api/info/stats', middlewareAPI, stats.show);
+	}
 
 	app.listen(config.port, callback);
 }
