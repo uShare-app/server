@@ -49,6 +49,11 @@ function routes(callback)
 		app.get('/api/info/stats', middlewareAPI, stats.show);
 	}
 
+	app.use(function(req, res)
+	{
+		res.status(404).send('Document not found.');
+	});
+
 	app.listen(config.port, callback);
 }
 
