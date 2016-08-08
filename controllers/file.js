@@ -131,7 +131,23 @@ function view(req, res)
 	});
 }
 
-
+/**
+ * @api {head} /:id Get informations about a file
+ * @apiName GetFileInfo
+ * @apiGroup File
+ * @apiPermission none
+ * @apiDescription Get a information about any file. Informations are in headers.
+ * @apiVersion 0.1.0
+ * @apiParam {String} id The unique identifier of the file.
+ * @apiSuccess {String} Uplmg-FileName Name of the file
+ * @apiSuccess {Number} Uplmg-Length Size of the file
+ * @apiSuccess {String} Uplmg-Type MimeType of the file
+ * @apiSuccess {String} Uplmg-Extension Extension of the file
+ * @apiSuccess {String} Uplmg-ShortName Short identifier of the file used for quick access
+ * @apiSuccess {Number} Uplmg-Views Number of views of the file
+ * @apiSuccess {String} Uplmg-Senderid Identifier of the sender
+ * @apiSuccess {Date} Uplmg-ReceivedAt Date of reception of the file
+ */
 function info(req, res)
 {
 	File.findOne({ shortName: req.params.shortname }, function(err, document)
@@ -150,15 +166,14 @@ function info(req, res)
 
 		res.set(
 		{
-			'Content-Type' : document.mimetype,
-			'Content-Length' : document.size,
-			'Uplmg-shortName' : document.shortName,
-			'Uplmg-fileName' : document.fileName,
-			'Uplmg-originalFileName' : document.originalFileName,
-			'Uplmg-extension' : document.extension,
-			'Uplmg-senderid' : document.senderid,
-			'Uplmg-views' : document.views,
-			'Uplmg-receivedAt' : document.receivedAt
+			'Uplmg-FileName': document.originalFileName,
+			'Uplmg-Length': document.size,
+			'Uplmg-Type': document.mimetype,
+			'Uplmg-Extension': document.extension,
+			'Uplmg-ShortName': document.shortName,
+			'Uplmg-Views': document.views,
+			'Uplmg-Senderid': document.senderid,
+			'Uplmg-ReceivedAt': document.receivedAt,
 		}).send('');
 	});
 }
