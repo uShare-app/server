@@ -70,6 +70,8 @@ function upload(req, res)
 
 		const fileData = new File(); // The file inside MongoDB
 		const file = req.file; // The file by itself
+		let extension = file.originalname.split('.');
+		extension = extension[extension.length - 1];
 
 		fileData.shortName = shortName;
 		fileData.fileName = file.filename;
@@ -77,7 +79,7 @@ function upload(req, res)
 		fileData.path = file.path;
 		fileData.encoding = file.encoding;
 		fileData.mimetype = file.mimetype;
-		fileData.extension = file.extension; // ?
+		fileData.extension = extension;
 		fileData.size = file.size;
 		fileData.senderid = req.body.senderid;
 		fileData.senderip = req.ip;
