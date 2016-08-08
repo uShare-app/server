@@ -127,6 +127,10 @@ function view(req, res)
 			'Content-Disposition': `inline; filename="${document.originalFileName}"`,
 			'Content-Type': document.mimetype,
 		};
+
+		document.views++;
+		document.save(function(){});
+
 		res.status(200).sendFile(path.resolve(document.path), options);
 	});
 }
