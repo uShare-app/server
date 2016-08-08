@@ -1,5 +1,21 @@
 const Files = require('../models/file.js');
 
+/**
+ * @api {get} /info/stats Get server's statistics (HR)
+ * @apiName GetStats
+ * @apiGroup Stats
+ * @apiPermission Need to be enabled in configuration
+ * @apiDescription Get server's statistics. Output is human readable.
+ * @apiVersion 0.1.0
+ */
+/**
+ * @api {get} /api/info/stats Get server's statistics (JSON)
+ * @apiName GetApiStats
+ * @apiGroup Stats
+ * @apiPermission Need to be enabled in configuration
+ * @apiDescription Get server's statistics. Output is JSON.
+ * @apiVersion 0.1.0
+ */
 function show(req, res)
 {
 	let numberOfFilesQuery;

@@ -32,13 +32,19 @@ function getRandomShortName(callback)
 	});
 }
 
-/* This action handle saving new files sended through the API.
- * API Summary:
- * 	Route: /file/upload
- *	HTTP Request:
- *		- multipart/form-data only
- *		- file: the files
- *		- senderid: unique identifier of you app
+/**
+ * @api {post} /file/upload Save a new file
+ * @apiName PostFile
+ * @apiGroup File
+ * @apiPermission none
+ * @apiDescription The HTTP request must be multipart/form-data only.
+ * @apiVersion 0.1.0
+ * @apiSuccessExample {text} Success-Response:
+ *		HTTP/1.1 200 OK
+ *		http://uplmg.com/AYZ
+ *
+ * @apiHeader {File} file The file you want to save
+ * @apiHeader {String} senderid Name of your application
  */
 function upload(req, res)
 {
@@ -89,6 +95,15 @@ function upload(req, res)
 	});
 }
 
+/**
+ * @api {get} /:id Get a file
+ * @apiName GetFile
+ * @apiGroup File
+ * @apiPermission none
+ * @apiDescription Get a file previously uploaded using PostFile
+ * @apiVersion 0.1.0
+ * @apiParam {String} id The unique identifier of the file.
+ */
 function view(req, res)
 {
 	File.findOne({ shortName: req.params.shortname }, function(err, document)
