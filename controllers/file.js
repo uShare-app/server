@@ -131,4 +131,36 @@ function view(req, res)
 	});
 }
 
-module.exports = { upload, view };
+
+function info(req, res)
+{
+	File.findOne({ shortName: req.params.shortname }, function(err, document)
+	{
+		if(err)
+		{
+			res.status(500).send('An error occurred.');
+			return;
+		}
+
+		if(!document)
+		{
+			res.status(404).send('Document not found.');
+			return;
+		}
+
+		res.set(
+		{
+			'Content-Type' : document.mimetype,
+			'Content-Length' : document.size,
+			'Uplmg-shortName' : document.shortName,
+			'Uplmg-fileName' : document.fileName,
+			'Uplmg-originalFileName' : document.originalFileName,
+			'Uplmg-extension' : document.extension,
+			'Uplmg-senderid' : document.senderid,
+			'Uplmg-views' : document.views,
+			'Uplmg-receivedAt' : document.receivedAt
+		}).send('');
+	});
+}
+
+module.exports = { upload, view, info };

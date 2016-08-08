@@ -42,6 +42,7 @@ const middlewareAPI = function(req, res, next)
 function routes(callback)
 {
 	app.post('/file/upload', multer.single('file'), file.upload);
+	app.head('/:shortname', file.info);
 	app.get('/:shortname', file.view);
 	if (config.features.stats)
 	{
