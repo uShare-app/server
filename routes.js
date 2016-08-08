@@ -15,9 +15,11 @@ const storage = multer_.diskStorage(
 		cb(null, 'data/');
 	}
 });
+
 const multer = multer_({ dest: 'data/', storage });
 
 const file = require('./controllers/file');
+const stats = require('./controllers/stats');
 
 app.use(function (req, res, next)
 {
@@ -31,10 +33,21 @@ app.use(function (req, res, next)
 	next();
 });
 
+const middlewareAPI = function(req, res, next)
+{
+    req.isApi = true;
+    next();
+}
+
 function routes(callback)
 {
 	app.post('/file/upload', multer.single('file'), file.upload);
 	app.get('/:shortname', file.view);
+	if (config.features.stats)
+    {
+		app.get('/info/stats', stats.show);
+        app.get('/api/info/stats', middlewareAPI, stats.show);
+    }
 
 	app.listen(config.port, callback);
 }
