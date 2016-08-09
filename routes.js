@@ -20,6 +20,7 @@ const multer = multer_({ dest: 'data/', storage });
 
 const file = require('./controllers/file');
 const stats = require('./controllers/stats');
+const search = require('./controllers/search');
 
 app.use(function (req, res, next)
 {
@@ -41,9 +42,16 @@ const middlewareAPI = function(req, res, next)
 
 function routes(callback)
 {
+	if(config.features.search)
+	{
+		app.get('/search', search.show);
+		app.get('/api/search', middlewareAPI, search.show);
+	}
+	
 	app.post('/file/upload', multer.single('file'), file.upload);
 	app.head('/:shortname', file.info);
 	app.get('/:shortname', file.view);
+
 	if (config.features.stats)
 	{
 		app.get('/info/stats', stats.show);
