@@ -20,7 +20,7 @@ function show(req, res)
 {
 	let list;
 	
-	list = Files.find({}).limit(200).limit(200);
+	list = Files.find({}).limit(200);
 
 	list.exec(function(err, fileFind)
 	{
