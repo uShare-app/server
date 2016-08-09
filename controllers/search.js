@@ -22,7 +22,7 @@ function show(req, res)
 	
 	list = Files.find({}).limit(200);
 
-	list.exec(function(err, fileFind)
+	list.exec(function(err, files)
 	{
 
 		if (err)
@@ -30,10 +30,10 @@ function show(req, res)
 			res.status(500).sendError();
 			return;
 		}
-		
+
 		if(req.isApi)
 		{
-			res.status(200).json(fileFind);
+			res.status(200).json(files);
 			return;
 		}
 
@@ -41,9 +41,9 @@ function show(req, res)
 
 		response = '<html><body>';
 
-		for (var i = fileFind.length - 1; i >= 0; i--) 
+		for (var i = files.length - 1; i >= 0; i--) 
 		{
-			response += fileFind[i]['shortName'] + '<br>';
+			response += files[i]['shortName'] + '<br>';
 		}
 
 		response += '</body></html>';
