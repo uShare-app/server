@@ -25,6 +25,12 @@ function show(req, res)
 	list.exec(function(err, fileFind)
 	{
 
+		if (err)
+		{
+			res.status(500).sendError();
+			return;
+		}
+		
 		if(req.isApi)
 		{
 			res.status(200).json(fileFind);
