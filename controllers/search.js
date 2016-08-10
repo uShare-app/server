@@ -107,6 +107,7 @@ function show(req, res)
 		response += '<tr>'
 					+ '<td>shortName</td>'
 					+ '<td>originalFileName</td>'
+					+ '<td>size</td>'
 					+ '<td>encoding</td>'
 					+ '<td>mimetype</td>'
 					+ '<td>extension</td>'
@@ -118,12 +119,13 @@ function show(req, res)
 		{
 			response += '<tr>'
 						+ '<td><a target="_blank" href="' + config.url + '/' + files[i]['shortName'] + '">' +  files[i]['shortName'] + '</a></td>'
-						+ '<td>' +  files[i]['originalFileName'] + '</td>'
-						+ '<td>' +  files[i]['encoding'] + '</td>'
-						+ '<td>' +  files[i]['mimetype'] + '</td>'
-						+ '<td>' +  files[i]['extension'] + '</td>'
-						+ '<td>' +  files[i]['senderid'] + '</td>'
-						+ '<td>' +  files[i]['views'] + '</td>'
+						+ '<td>' + files[i]['originalFileName'] + '</td>'
+						+ '<td>' + humanFileSize(files[i]['size'], true) + '</td>'
+						+ '<td>' + files[i]['encoding'] + '</td>'
+						+ '<td>' + files[i]['mimetype'] + '</td>'
+						+ '<td>' + files[i]['extension'] + '</td>'
+						+ '<td>' + files[i]['senderid'] + '</td>'
+						+ '<td>' + files[i]['views'] + '</td>'
 						+ '</tr>';
 		}
 
@@ -131,6 +133,22 @@ function show(req, res)
 		response += '</body></html>';
 		res.status(200).send(response);
 	});
+}
+
+function humanFileSize(bytes, si)
+{
+	var thresh = si ? 1000 : 1024;
+	if(Math.abs(bytes) < thresh)
+		return bytes + ' B';
+	var units = si
+		? ['kB','MB','GB','TB','PB','EB','ZB','YB']
+		: ['KiB','MiB','GiB','TiB','PiB','EiB','ZiB','YiB'];
+	var u = -1;
+	do {
+		bytes /= thresh;
+		++u;
+	} while(Math.abs(bytes) >= thresh && u < units.length - 1);
+	return bytes.toFixed(1) + ' ' + units[u];
 }
 
 /*
