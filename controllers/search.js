@@ -40,24 +40,53 @@ function show(req, res)
 {
 	let list;
 	let page;
+	let date, datePlusUn;
 
-	page = req.params.page;
-
-	if(page == 'undefined' || page == '1')
+	if(isDate(req.params.date))
 	{
-		list = Files.find({ available: true }).limit(200);
+		date = req.params.date;
+		page = req.params.page;
 	}
 	else
 	{
+		date = null;
+		page = req.params.date;
+	}
+
+	list = Files.find({ available: true }).limit(200);
+
+	if(date != null)
+	{
+		date = new Date(date);
+
+		datePlusUn = new Date(date);
+		datePlusUn.setHours(26);
+
+		// console.log(date);
+		// console.log(datePlusUn);
+		// console.log('---');
+
+		list.find(
+		{ 
+			receivedAt:
+			{
+				$gt: date,
+				$lt: datePlusUn
+			}
+
+		});
+	}
+
+	if(page != 'undefined' || page != '1')
+	{
 		let skip;
 		skip = 200 * ( page - 1 );
-		list = Files.find({ available: true }).skip(skip).limit(200)
+		list.skip(skip);
 	}
 
 	
 	list.select('-_id shortName originalFileName encoding mimetype extension '
 		+ 'size senderid views receivedAt');
-
 
 	list.exec(function(err, files)
 	{
@@ -104,6 +133,36 @@ function show(req, res)
 		response += '</body></html>';
 		res.status(200).send(response);
 	});
+}
+
+/*
+	Determine si c'est uen date ou pas	
+*/
+function isDate(date)
+{
+	let expression;
+	let j, m, a;
+	let laDate;
+
+	if(date == "")
+	{
+		return false;
+	}
+
+	expression = new RegExp("^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}");
+
+	if(!expression.test(date))
+	{
+		return false;
+	}
+
+	j = parseInt(date.split("-")[2], 10); // jour
+	m = parseInt(date.split("-")[1], 10); // mois
+	a = parseInt(date.split("-")[0], 10); // année
+
+	laDate = new Date(a, m, j);
+
+	return (laDate.getFullYear() != a || laDate.getMonth() != m) ? false : true;
 }
 
 module.exports = { show };
