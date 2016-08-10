@@ -26,12 +26,12 @@
 	},
 	"files.search":
 	{
-		"route": "/files/search",
+		"route": "/files/search/:page?",
 		"method": "GET"
 	},
 	"files.search.api":
 	{
-		"route": "/api/files/search",
+		"route": "/api/files/search/:page?",
 		"method": "GET"
 	}
 }
