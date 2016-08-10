@@ -44,14 +44,14 @@ function routes(callback)
 {
 	if(config.features.search)
 	{
-		app.get('/search', search.show);
-		app.get('/api/search', middlewareAPI, search.show);
+		app.get('/files/search', search.show);
+		app.get('/api/files/search', middlewareAPI, search.show);
 	}
 	
 	if (config.features.stats)
 	{
-		app.get('/info/stats', stats.show);
-		app.get('/api/info/stats', middlewareAPI, stats.show);
+		app.get('/files/stats', stats.show);
+		app.get('/api/files/stats', middlewareAPI, stats.show);
 	}
 
 	app.post('/file/upload', multer.single('file'), file.upload);
