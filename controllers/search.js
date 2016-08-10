@@ -57,12 +57,27 @@ function show(req, res)
 		let response;
 
 		response = '<html><body>';
+		response += '<table border="solid">';
+		response += '<tr>' + 
+						'<td>shortName</td>' +
+						'<td>originalFileName</td>' +
+						'<td>encoding</td>' +
+						'<td>mimetype</td>' +
+						'<td>extension</td>' +
+					'</tr>';
 
 		for (var i = files.length - 1; i >= 0; i--) 
 		{
-			response += files[i]['shortName'] + '<br>';
+			response += '<tr>' +
+							'<td>' +  files[i]['shortName'] + '</td>' +
+							'<td>' +  files[i]['originalFileName'] + '</td>' +
+							'<td>' +  files[i]['encoding'] + '</td>' +
+							'<td>' +  files[i]['mimetype'] + '</td>' +
+							'<td>' +  files[i]['extension'] + '</td>' +
+						'</tr>';
 		}
 
+		response += '</table>';
 		response += '</body></html>';
 		res.status(200).send(response);
 	});
