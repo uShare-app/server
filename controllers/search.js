@@ -39,7 +39,7 @@ function show(req, res)
 	
 	list = Files.find({ available: true }).limit(200);
 	list.select('-_id shortName originalFileName encoding mimetype extension '
-		+ 'size senderid views receivedAt senderid views');
+		+ 'size senderid views receivedAt');
 
 	list.exec(function(err, files)
 	{

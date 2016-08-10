@@ -25,7 +25,6 @@
     "express": "^4.14.0",
     "mime-types": "^2.1.11",
     "mongoose": "^4.5.8",
-    "multer": "^1.2.0",
-    "nodemon": "^1.10.0"
+    "multer": "^1.2.0"
   }
 }
