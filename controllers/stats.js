@@ -15,6 +15,11 @@ const Files = require('../models/file.js');
  * @apiPermission Need to be enabled in configuration
  * @apiDescription Get server's statistics. Output is JSON.
  * @apiVersion 0.1.0
+ * @apiSuccessExample {json} Success-Response:
+ * 	{
+ *		"numberOfFilesToday": Number,
+ *		"numberOfFiles": Number
+ *	}
  */
 function show(req, res)
 {
