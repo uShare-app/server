@@ -1,6 +1,7 @@
 const path = require('path');
 
 const chance = require('chance');
+const mimetypes = require('mime-types');
 
 const config = require('../config.json');
 const File = require('../models/file');
@@ -78,7 +79,7 @@ function upload(req, res)
 		fileData.originalFileName = file.originalname;
 		fileData.path = file.path;
 		fileData.encoding = file.encoding;
-		fileData.mimetype = file.mimetype;
+		fileData.mimetype = mimetypes.lookup(file.originalname) || file.mimetype;
 		fileData.extension = extension;
 		fileData.size = file.size;
 		fileData.senderid = req.body.senderid;
