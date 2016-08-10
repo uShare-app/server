@@ -2,23 +2,27 @@ const Files = require('../models/file');
 const config = require('../config.json');
 
 /**
- * @api {get} /files/search/:page Get server's files (HR)
+ * @api {get} /files/search/:date?/:page? Get server's files (HR)
  * @apiName GetSearch
  * @apiGroup Search
  * @apiPermission Need to be enabled in configuration
  * @apiDescription Get server's files. Limited to 200 files.
  * Output is human readable.
  * @apiVersion 0.1.0
- * @apiParam {Number} page Search Page (optional)
+ * @apiParam {Number} page Page to offset the limit of 200 (optional)
+ * @apiParam {Date} date Limit the search to a specific day. Data format:
+ * YYYY-MM-DD (optional)
  */
 /**
- * @api {get} /api/files/search/:page Get server's file (JSON)
+ * @api {get} /api/files/search/:date?/:page? Get server's file (JSON)
  * @apiName GetApiSearch
  * @apiGroup Search
  * @apiPermission Need to be enabled in configuration
  * @apiDescription Get server's files. Limited to 200 files. Output is JSON.
  * @apiVersion 0.1.0
- * @apiParam {Number} page Search Page (optional)
+ * @apiParam {Number} page Page to offset the limit of 200 (optional)
+ * @apiParam {Date} date Limit the search to a specific day. Data format:
+ * YYYY-MM-DD (optional)
  * @apiSuccessExample {json} Success-Response:
  *	[
  *		{
@@ -35,12 +39,11 @@ const config = require('../config.json');
  *		...
  *	]
  */
-
 function show(req, res)
 {
 	let list;
 	let page;
-	let date, datePlusUn;
+	let date, nextDate;
 
 	if(isDate(req.params.date))
 	{
@@ -55,35 +58,30 @@ function show(req, res)
 
 	list = Files.find({ available: true }).limit(200);
 
-	if(date != null)
+	if(date !== null)
 	{
 		date = new Date(date);
+		date.setHours(0);
 
-		datePlusUn = new Date(date);
-		datePlusUn.setHours(26);
-
-		// console.log(date);
-		// console.log(datePlusUn);
-		// console.log('---');
+		nextDate = new Date(date);
+		nextDate.setHours(24);
 
 		list.find(
 		{ 
 			receivedAt:
 			{
 				$gt: date,
-				$lt: datePlusUn
+				$lt: nextDate
 			}
-
 		});
 	}
 
-	if(page != 'undefined' || page != '1')
+	if(!page)
 	{
 		let skip;
-		skip = 200 * ( page - 1 );
+		skip = 200 * (page - 1);
 		list.skip(skip);
 	}
-
 	
 	list.select('-_id shortName originalFileName encoding mimetype extension '
 		+ 'size senderid views receivedAt');
@@ -106,27 +104,27 @@ function show(req, res)
 
 		response = '<html><body>';
 		response += '<table border="solid">';
-		response += '<tr>' + 
-						'<td>shortName</td>' +
-						'<td>originalFileName</td>' +
-						'<td>encoding</td>' +
-						'<td>mimetype</td>' +
-						'<td>extension</td>' +
-						'<td>senderid</td>' +
-						'<td>views</td>' +
-					'</tr>';
+		response += '<tr>'
+					+ '<td>shortName</td>'
+					+ '<td>originalFileName</td>'
+					+ '<td>encoding</td>'
+					+ '<td>mimetype</td>'
+					+ '<td>extension</td>'
+					+ '<td>senderid</td>'
+					+ '<td>views</td>'
+					+ '</tr>';
 
 		for (var i = files.length - 1; i >= 0; i--) 
 		{
-			response += '<tr>' +
-							'<td><a target="_blank" href="' + config.url + '/' + files[i]['shortName'] + '">' +  files[i]['shortName'] + '</a></td>' +
-							'<td>' +  files[i]['originalFileName'] + '</td>' +
-							'<td>' +  files[i]['encoding'] + '</td>' +
-							'<td>' +  files[i]['mimetype'] + '</td>' +
-							'<td>' +  files[i]['extension'] + '</td>' +
-							'<td>' +  files[i]['senderid'] + '</td>' +
-							'<td>' +  files[i]['views'] + '</td>' +
-						'</tr>';
+			response += '<tr>'
+						+ '<td><a target="_blank" href="' + config.url + '/' + files[i]['shortName'] + '">' +  files[i]['shortName'] + '</a></td>'
+						+ '<td>' +  files[i]['originalFileName'] + '</td>'
+						+ '<td>' +  files[i]['encoding'] + '</td>'
+						+ '<td>' +  files[i]['mimetype'] + '</td>'
+						+ '<td>' +  files[i]['extension'] + '</td>'
+						+ '<td>' +  files[i]['senderid'] + '</td>'
+						+ '<td>' +  files[i]['views'] + '</td>'
+						+ '</tr>';
 		}
 
 		response += '</table>';
@@ -136,15 +134,14 @@ function show(req, res)
 }
 
 /*
-	Determine si c'est uen date ou pas	
-*/
+ * Dates format: YYYY-MM-DD
+ */
 function isDate(date)
 {
 	let expression;
-	let j, m, a;
-	let laDate;
+	let d, m, y;
 
-	if(date == "")
+	if(!date)
 	{
 		return false;
 	}
@@ -156,13 +153,13 @@ function isDate(date)
 		return false;
 	}
 
-	j = parseInt(date.split("-")[2], 10); // jour
-	m = parseInt(date.split("-")[1], 10); // mois
-	a = parseInt(date.split("-")[0], 10); // année
+	d = parseInt(date.split("-")[2], 10);
+	m = parseInt(date.split("-")[1], 10);
+	y = parseInt(date.split("-")[0], 10);
 
-	laDate = new Date(a, m, j);
+	date = new Date(d, m, y);
 
-	return (laDate.getFullYear() != a || laDate.getMonth() != m) ? false : true;
+	return (date.getFullYear() !== y || date.getMonth() !== m || date.getDay() !== d) ? false : true;
 }
 
 module.exports = { show };
