@@ -42,7 +42,7 @@ const middlewareAPI = function(req, res, next)
 
 function routes(callback)
 {
-	if(config.features.search)
+	if (config.features.search)
 	{
 		app.get('/files/search', search.show);
 		app.get('/api/files/search', middlewareAPI, search.show);
