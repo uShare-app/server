@@ -1,3 +1,5 @@
+const entities = require('html-entities').AllHtmlEntities;
+
 const Files = require('../models/file');
 const config = require('../config.json');
 
@@ -118,14 +120,14 @@ function show(req, res)
 		for (var i = files.length - 1; i >= 0; i--) 
 		{
 			response += '<tr>'
-						+ '<td><a target="_blank" href="' + config.url + '/' + files[i]['shortName'] + '">' +  files[i]['shortName'] + '</a></td>'
-						+ '<td>' + files[i]['originalFileName'] + '</td>'
-						+ '<td>' + humanFileSize(files[i]['size'], true) + '</td>'
-						+ '<td>' + files[i]['encoding'] + '</td>'
-						+ '<td>' + files[i]['mimetype'] + '</td>'
-						+ '<td>' + files[i]['extension'] + '</td>'
-						+ '<td>' + files[i]['senderid'] + '</td>'
-						+ '<td>' + files[i]['views'] + '</td>'
+						+ '<td><a target="_blank" href="' + config.url + '/' + entities.encode(files[i]['shortName']) + '">' +  entities.encode(files[i]['shortName']) + '</a></td>'
+						+ '<td>' + entities.encode(files[i]['originalFileName']) + '</td>'
+						+ '<td>' + entities.encode(humanFileSize(files[i]['size']), true) + '</td>'
+						+ '<td>' + entities.encode(files[i]['encoding']) + '</td>'
+						+ '<td>' + entities.encode(files[i]['mimetype']) + '</td>'
+						+ '<td>' + entities.encode(files[i]['extension']) + '</td>'
+						+ '<td>' + entities.encode(files[i]['senderid']) + '</td>'
+						+ '<td>' + entities.encode(files[i]['views']) + '</td>'
 						+ '</tr>';
 		}
 
