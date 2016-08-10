@@ -35,7 +35,6 @@ app.use(function (req, res, next)
 	next();
 });
 
-
 const middlewareAPI = function(req, res, next)
 {
 	req.isApi = true;
@@ -67,6 +66,5 @@ function routes(callback)
 
 	app.listen(config.port, callback);
 }
-
 
 module.exports = routes;
