@@ -1,4 +1,5 @@
 const Files = require('../models/file');
+const config = require('../config.json');
 
 /**
  * @api {get} /search Get server's files (HR)
@@ -69,7 +70,7 @@ function show(req, res)
 		for (var i = files.length - 1; i >= 0; i--) 
 		{
 			response += '<tr>' +
-							'<td>' +  files[i]['shortName'] + '</td>' +
+							'<td><a target="_blank" href="' + config.url + '/' + files[i]['shortName'] + '">' +  files[i]['shortName'] + '</a></td>' +
 							'<td>' +  files[i]['originalFileName'] + '</td>' +
 							'<td>' +  files[i]['encoding'] + '</td>' +
 							'<td>' +  files[i]['mimetype'] + '</td>' +
