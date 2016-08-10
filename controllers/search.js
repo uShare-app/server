@@ -119,15 +119,21 @@ function show(req, res)
 
 		for (var i = files.length - 1; i >= 0; i--) 
 		{
+			files[i]['shortName'] = files[i]['shortName'] ? files[i]['shortName'] : '';
+			files[i]['originalFileName'] = files[i]['originalFileName'] ? files[i]['originalFileName'] : '';
+			files[i]['encoding'] = files[i]['encoding'] ? files[i]['encoding'] : '';
+			files[i]['mimetype'] = files[i]['mimetype'] ? files[i]['mimetype'] : '';
+			files[i]['extension'] = files[i]['extension'] ? files[i]['extension'] : '';
+			files[i]['senderid'] = files[i]['senderid'] ? files[i]['senderid'] : '';
 			response += '<tr>'
 						+ '<td><a target="_blank" href="' + config.url + '/' + entities.encode(files[i]['shortName']) + '">' +  entities.encode(files[i]['shortName']) + '</a></td>'
 						+ '<td>' + entities.encode(files[i]['originalFileName']) + '</td>'
-						+ '<td>' + entities.encode(humanFileSize(files[i]['size']), true) + '</td>'
+						+ '<td>' + humanFileSize(files[i]['size'], true) + '</td>'
 						+ '<td>' + entities.encode(files[i]['encoding']) + '</td>'
 						+ '<td>' + entities.encode(files[i]['mimetype']) + '</td>'
 						+ '<td>' + entities.encode(files[i]['extension']) + '</td>'
 						+ '<td>' + entities.encode(files[i]['senderid']) + '</td>'
-						+ '<td>' + entities.encode(files[i]['views']) + '</td>'
+						+ '<td>' + files[i]['views'] + '</td>'
 						+ '</tr>';
 		}
 
