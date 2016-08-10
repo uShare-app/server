@@ -2,21 +2,23 @@ const Files = require('../models/file');
 const config = require('../config.json');
 
 /**
- * @api {get} /search Get server's files (HR)
+ * @api {get} /files/search/:page Get server's files (HR)
  * @apiName GetSearch
  * @apiGroup Search
  * @apiPermission Need to be enabled in configuration
  * @apiDescription Get server's files. Limited to 200 files.
  * Output is human readable.
  * @apiVersion 0.1.0
+ * @apiParam {Number} page Search Page (optional)
  */
 /**
- * @api {get} /api/search Get server's file (JSON)
+ * @api {get} /api/files/search/:page Get server's file (JSON)
  * @apiName GetApiSearch
  * @apiGroup Search
  * @apiPermission Need to be enabled in configuration
  * @apiDescription Get server's files. Limited to 200 files. Output is JSON.
  * @apiVersion 0.1.0
+ * @apiParam {Number} page Search Page (optional)
  * @apiSuccessExample {json} Success-Response:
  *	[
  *		{
@@ -33,13 +35,29 @@ const config = require('../config.json');
  *		...
  *	]
  */
+
 function show(req, res)
 {
 	let list;
+	let page;
+
+	page = req.params.page;
+
+	if(page == 'undefined' || page == '1')
+	{
+		list = Files.find({ available: true }).limit(200);
+	}
+	else
+	{
+		let skip;
+		skip = 200 * ( page - 1 );
+		list = Files.find({ available: true }).skip(skip).limit(200)
+	}
+
 	
-	list = Files.find({ available: true }).limit(200);
 	list.select('-_id shortName originalFileName encoding mimetype extension '
 		+ 'size senderid views receivedAt');
+
 
 	list.exec(function(err, files)
 	{

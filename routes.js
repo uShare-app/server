@@ -46,6 +46,8 @@ function routes(callback)
 	{
 		app.get('/files/search', search.show);
 		app.get('/api/files/search', middlewareAPI, search.show);
+		app.get('/files/search/:page', search.show);
+		app.get('/api/search/:page', middlewareAPI, search.show);
 	}
 	
 	if (config.features.stats)
