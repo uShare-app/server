@@ -39,7 +39,7 @@ function show(req, res)
 	
 	list = Files.find({ available: true }).limit(200);
 	list.select('-_id shortName originalFileName encoding mimetype extension '
-		+ 'size senderid views receivedAt');
+		+ 'size senderid views receivedAt senderid views');
 
 	list.exec(function(err, files)
 	{
@@ -65,6 +65,8 @@ function show(req, res)
 						'<td>encoding</td>' +
 						'<td>mimetype</td>' +
 						'<td>extension</td>' +
+						'<td>senderid</td>' +
+						'<td>views</td>' +
 					'</tr>';
 
 		for (var i = files.length - 1; i >= 0; i--) 
@@ -75,6 +77,8 @@ function show(req, res)
 							'<td>' +  files[i]['encoding'] + '</td>' +
 							'<td>' +  files[i]['mimetype'] + '</td>' +
 							'<td>' +  files[i]['extension'] + '</td>' +
+							'<td>' +  files[i]['senderid'] + '</td>' +
+							'<td>' +  files[i]['views'] + '</td>' +
 						'</tr>';
 		}
 
