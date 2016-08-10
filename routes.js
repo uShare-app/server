@@ -21,6 +21,7 @@ const multer = multer_({ dest: 'data/', storage });
 const file = require('./controllers/file');
 const stats = require('./controllers/stats');
 const search = require('./controllers/search');
+const auth = require('./controllers/auth');
 
 app.use(function (req, res, next)
 {
@@ -34,6 +35,7 @@ app.use(function (req, res, next)
 	next();
 });
 
+
 const middlewareAPI = function(req, res, next)
 {
 	req.isApi = true;
@@ -44,19 +46,19 @@ function routes(callback)
 {
 	if (config.features.search)
 	{
-		app.get('/files/search', search.show);
-		app.get('/api/files/search', middlewareAPI, search.show);
+		app.get('/files/search', auth, search.show);
+		app.get('/api/files/search', auth, middlewareAPI, search.show);
 	}
 	
 	if (config.features.stats)
 	{
-		app.get('/files/stats', stats.show);
-		app.get('/api/files/stats', middlewareAPI, stats.show);
+		app.get('/files/stats', auth, stats.show);
+		app.get('/api/files/stats', auth, middlewareAPI, stats.show);
 	}
 
-	app.post('/file/upload', multer.single('file'), file.upload);
-	app.head('/:shortname', file.info);
-	app.get('/:shortname', file.view);
+	app.post('/file/upload', auth, multer.single('file'), file.upload);
+	app.head('/:shortname', auth, file.info);
+	app.get('/:shortname', auth, file.view);
 
 	app.use(function(req, res)
 	{

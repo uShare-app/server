@@ -11,5 +11,20 @@
 	{
 		"stats": true,
 		"search": true
+	},
+	"auth":
+	{
+		"routes":
+		{
+			"file.upload": false,
+			"file.get": false,
+			"file.info": false,
+			"files.stats": false,
+			"files.stats.api": false,
+			"files.search": false,
+			"files.search.api": false
+		},
+		"username": "uplmg",
+		"password": "none"
 	}
 }

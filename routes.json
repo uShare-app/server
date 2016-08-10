@@ -1,0 +1,37 @@
+{
+	"file.upload": 
+	{
+		"route": "/file/upload",
+		"method": "POST"
+	},
+	"file.get":
+	{
+		"route": "/:shortname",
+		"method": "GET"
+	},
+	"file.info":
+	{
+		"route": "/:shortname",
+		"method": "HEAD"
+	},
+	"files.stats":
+	{
+		"route": "/file/stats",
+		"method": "GET"
+	},
+	"files.stats.api":
+	{
+		"route": "/api/files/stats",
+		"method": "GET"
+	},
+	"files.search":
+	{
+		"route": "/files/search",
+		"method": "GET"
+	},
+	"files.search.api":
+	{
+		"route": "/api/files/search",
+		"method": "GET"
+	}
+}

@@ -20,6 +20,7 @@
     "nodemon": "^1.10.0"
   },
   "dependencies": {
+    "basic-auth": "^1.0.4",
     "chance": "^1.0.4",
     "colors": "^1.1.2",
     "express": "^4.14.0",
