@@ -48,15 +48,15 @@ function routes(callback)
 		app.get('/api/search', middlewareAPI, search.show);
 	}
 	
-	app.post('/file/upload', multer.single('file'), file.upload);
-	app.head('/:shortname', file.info);
-	app.get('/:shortname', file.view);
-
 	if (config.features.stats)
 	{
 		app.get('/info/stats', stats.show);
 		app.get('/api/info/stats', middlewareAPI, stats.show);
 	}
+
+	app.post('/file/upload', multer.single('file'), file.upload);
+	app.head('/:shortname', file.info);
+	app.get('/:shortname', file.view);
 
 	app.use(function(req, res)
 	{
