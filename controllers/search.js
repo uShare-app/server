@@ -14,7 +14,7 @@ const config = require('../config.json');
  * YYYY-MM-DD (optional)
  */
 /**
- * @api {get} /api/files/search/:date?/:page? Get server's file (JSON)
+ * @api {get} /api/files/search/:date?/:page? Get server's files (JSON)
  * @apiName GetApiSearch
  * @apiGroup Search
  * @apiPermission Need to be enabled in configuration
