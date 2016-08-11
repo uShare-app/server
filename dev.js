@@ -4,7 +4,7 @@ const nodemon = require('nodemon');
 nodemon(
 {
 	script: 'prod.js',
-	ext: 'js json'
+	ext: 'js json mustache'
 });
 
 let first;

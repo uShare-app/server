@@ -9,6 +9,11 @@
 		"route": "/:shortname",
 		"method": "GET"
 	},
+	"file.web.upload":
+	{
+		"route": "/file/upload",
+		"method": "GET"
+	},
 	"file.info":
 	{
 		"route": "/:shortname",

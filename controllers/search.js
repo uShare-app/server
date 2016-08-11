@@ -104,7 +104,7 @@ function show(req, res)
 
 		let response;
 
-		response = '<html><body>';
+		response = '<!DOCTYPE html><html><body>';
 		response += '<table border="solid">';
 		response += '<tr>'
 					+ '<td>shortName</td>'

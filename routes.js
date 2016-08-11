@@ -3,6 +3,11 @@ const config = require('./config.json');
 const express = require('express');
 const app = express();
 
+var mustache = require('mustache-express');
+app.engine('mustache', mustache());
+app.set('views', './views');
+app.set('view engine', 'mustache');
+
 const multer_ = require('multer');
 const storage = multer_.diskStorage(
 {
@@ -22,6 +27,7 @@ const file = require('./controllers/file');
 const stats = require('./controllers/stats');
 const search = require('./controllers/search');
 const auth = require('./controllers/auth');
+const web = require('./controllers/web');
 
 app.use(function (req, res, next)
 {
@@ -53,6 +59,11 @@ function routes(callback)
 	{
 		app.get('/files/stats', auth, stats.show);
 		app.get('/api/files/stats', auth, middlewareAPI, stats.show);
+	}
+
+	if (config.features['web.file.upload'])
+	{
+		app.get('/file/upload', auth, web.uploadFile);
 	}
 
 	app.post('/file/upload', auth, multer.single('file'), file.upload);

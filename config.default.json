@@ -10,7 +10,8 @@
 	"features":
 	{
 		"stats": true,
-		"search": true
+		"search": true,
+		"web.file.upload": true
 	},
 	"auth":
 	{

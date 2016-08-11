@@ -27,6 +27,7 @@
     "html-entities": "^1.2.0",
     "mime-types": "^2.1.11",
     "mongoose": "^4.5.8",
-    "multer": "^1.2.0"
+    "multer": "^1.2.0",
+    "mustache-express": "^1.2.2"
   }
 }
