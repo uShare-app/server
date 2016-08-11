@@ -19,6 +19,7 @@
 		{
 			"file.upload": false,
 			"file.get": false,
+			"web.file.upload": false,
 			"file.info": false,
 			"files.stats": false,
 			"files.stats.api": false,
