@@ -5,3 +5,4 @@ node_js:
 before_script:
   - apt-get install mongodb -y
   - cp config.default.json config.json
+sudo: required
