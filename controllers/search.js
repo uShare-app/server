@@ -78,7 +78,7 @@ function show(req, res)
 		});
 	}
 
-	if(!page)
+	if(page)
 	{
 		let skip;
 		skip = 200 * (page - 1);
@@ -167,25 +167,26 @@ function isDate(date)
 	let expression;
 	let d, m, y;
 
-	if(!date)
+	if (!date)
 	{
 		return false;
 	}
 
 	expression = new RegExp("^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}");
 
-	if(!expression.test(date))
+	if (!expression.test(date))
 	{
 		return false;
 	}
 
-	d = parseInt(date.split("-")[2], 10);
-	m = parseInt(date.split("-")[1], 10);
 	y = parseInt(date.split("-")[0], 10);
+	m = parseInt(date.split("-")[1], 10);
+	d = parseInt(date.split("-")[2], 10);
 
-	date = new Date(d, m, y);
+	date = new Date(y, m, d);
 
-	return (date.getFullYear() !== y || date.getMonth() !== m || date.getDay() !== d) ? false : true;
+	return (date.getFullYear() === y
+		&& date.getMonth() === m);
 }
 
 module.exports = { show };

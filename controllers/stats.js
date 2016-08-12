@@ -1,7 +1,7 @@
 const Files = require('../models/file.js');
 
 /**
- * @api {get} /info/stats Get server's statistics (HR)
+ * @api {get} /files/stats Get server's statistics (HR)
  * @apiName GetStats
  * @apiGroup Stats
  * @apiPermission Need to be enabled in configuration
@@ -9,7 +9,7 @@ const Files = require('../models/file.js');
  * @apiVersion 0.1.0
  */
 /**
- * @api {get} /api/info/stats Get server's statistics (JSON)
+ * @api {get} /api/files/stats Get server's statistics (JSON)
  * @apiName GetApiStats
  * @apiGroup Stats
  * @apiPermission Need to be enabled in configuration
@@ -62,6 +62,7 @@ function show(req, res)
 			if (req.isApi)
 			{
 				res.status(200).json({ numberOfFilesToday, numberOfFiles });
+				return;
 			}
 
 			let response;

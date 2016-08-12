@@ -21,7 +21,7 @@
 	},
 	"files.stats":
 	{
-		"route": "/file/stats",
+		"route": "/files/stats",
 		"method": "GET"
 	},
 	"files.stats.api":
