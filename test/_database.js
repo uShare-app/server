@@ -10,11 +10,13 @@ const FileDatabase = require('../models/file.js');
 
 describe('Database', function()
 {
-	this.timeout(20000);
-	
 	it('should connect to MongoDB', function(done)
 	{
-		require('../database.js')(function(){}, true);
-		done();
+		require('../database.js')(function(err)
+		{
+			if (err)
+				throw err;
+			done();
+		}, true);
 	});
 });
