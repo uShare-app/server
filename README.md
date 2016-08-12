@@ -1,4 +1,4 @@
-# Uplimg's server
+# Uplimg's server [![Build Status](https://travis-ci.org/Uplimg/server.svg?branch=martin-mh-patch-1)](https://travis-ci.org/Uplimg/server)
 
 Uplimg's server let you save and redistribute your files quickly and easily.
 It's likely a CDN: through a simple API you can save file, then redistribute

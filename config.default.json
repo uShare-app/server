@@ -2,6 +2,7 @@
 	"url": "http://127.0.0.1:8000",
 	"port": 8000,
 	"database": "mongodb://127.0.0.1/uplimg",
+	"test-database": "mongodb://127.0.0.1/test-uplimg",
 	"shortName":
 	{
 		"pool": "123456789aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ",
