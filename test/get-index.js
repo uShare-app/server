@@ -2,7 +2,9 @@ const httpMocks = require('node-mocks-http');
 const should = require('should');
 
 const File = require('../controllers/file.js');
+const FileDatabase = require('../models/file.js');
 
+const tools = require('./tools.js');
 
 describe('GET /', function()
 {
@@ -11,10 +13,10 @@ describe('GET /', function()
 		var request = httpMocks.createRequest(
 		{
 			method: 'GET',
-			url: '/'
+			url: '/',
 		});
 
-		var response = httpMocks.createResponse({eventEmitter: require('events').EventEmitter});
+		var response = tools.buildResponse();
 
 		response.on('end', function()
 		{
@@ -23,6 +25,6 @@ describe('GET /', function()
 			done();
 		});
 
-		require('../database.js')(function(){ File.view(request, response); });
+		File.view(request, response);
 	});
 });
