@@ -2,7 +2,6 @@ language: node_js
 node_js:
   - "6"
   - "node"
-intall:
-  - apt install mongodb -y
 before_script:
+  - apt install mongodb -y
   - cp config.default.json config.json
