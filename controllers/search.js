@@ -63,7 +63,7 @@ function show(req, res)
 	if(date !== null)
 	{
 		date = new Date(date);
-		date.setHours(0);
+		date.setHours(-24);
 
 		nextDate = new Date(date);
 		nextDate.setHours(24);
