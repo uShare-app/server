@@ -8,6 +8,8 @@ const tools = require('./tools.js');
 
 describe('GET /:shortName', function()
 {
+	this.timeout(20000);
+	
 	it('Should return 404', function(done)
 	{
 		const request = httpMocks.createRequest(

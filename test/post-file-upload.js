@@ -8,6 +8,8 @@ const tools = require('./tools.js');
 
 describe('POST /file/upload', function()
 {
+	this.timeout(20000);
+	
 	it('should return status 400 (request do not follow the api)', function(done)
 	{
 		var request = httpMocks.createRequest(
