@@ -62,7 +62,6 @@ function show(req, res)
 			if (req.isApi)
 			{
 				res.status(200).json({ numberOfFilesToday, numberOfFiles });
-				return;
 			}
 
 			let response;
