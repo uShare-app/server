@@ -5,14 +5,14 @@
 const httpMocks = require('node-mocks-http');
 const should = require('should');
 
-const File = require('../controllers/file.js');
-const FileDatabase = require('../models/file.js');
+const File = require('../controllers/file');
+const FileDatabase = require('../models/file');
 
 describe('Database', function()
 {
 	it('should connect to MongoDB', function(done)
 	{
-		require('../database.js')(function(err)
+		require('../database')(function(err)
 		{
 			if (err)
 				throw err;

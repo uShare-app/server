@@ -1,10 +1,10 @@
 const httpMocks = require('node-mocks-http');
 const should = require('should');
 
-const File = require('../controllers/file.js');
-const FileDatabase = require('../models/file.js');
+const File = require('../controllers/file');
+const FileDatabase = require('../models/file');
 
-const tools = require('./tools.js');
+const tools = require('./tools');
 
 describe('POST /file/upload', function()
 {
