@@ -2,8 +2,8 @@ require('colors');
 const config = require('./config.json');
 
 const version = '0.0.1';
-
 console.log('Welcome to Uplimg\'s server.\nVersion:'.green, version.green);
+require('./version')(version);
 
 require('./database')(function(err)
 {
