@@ -30,12 +30,13 @@ function authentificator(req, res, next)
 				{
 					res.set('WWW-Authenticate', 'Basic realm="uplmg"');
 					res.status(403).send('');
+					return;
 				}
 				else
-					next();
+					return next();
 			}
 			else
-				next();
+				return next();
 		}
 	});
 	res.status(404).send('');
