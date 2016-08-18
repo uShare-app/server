@@ -59,6 +59,9 @@ function show(req, res)
 	}
 
 	list = Files.find({ available: true }).limit(200);
+	list.select('-_id shortName originalFileName encoding mimetype extension '
+		+ 'size senderid views receivedAt');
+	list.sort('-receivedAt');
 
 	if(date !== null)
 	{
@@ -84,9 +87,6 @@ function show(req, res)
 		skip = 200 * (page - 1);
 		list.skip(skip);
 	}
-	
-	list.select('-_id shortName originalFileName encoding mimetype extension '
-		+ 'size senderid views receivedAt');
 
 	list.exec(function(err, files)
 	{
@@ -117,7 +117,7 @@ function show(req, res)
 					+ '<td>views</td>'
 					+ '</tr>';
 
-		for (var i = files.length - 1; i >= 0; i--) 
+		for (let i = 0; i < files.length; ++i) 
 		{
 			files[i]['shortName'] = files[i]['shortName'] ? files[i]['shortName'] : '';
 			files[i]['originalFileName'] = files[i]['originalFileName'] ? files[i]['originalFileName'] : '';
