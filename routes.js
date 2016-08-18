@@ -3,7 +3,7 @@ const config = require('./config.json');
 const express = require('express');
 const app = express();
 
-var mustache = require('mustache-express');
+const mustache = require('mustache-express');
 app.engine('mustache', mustache());
 app.set('views', './views');
 app.set('view engine', 'mustache');

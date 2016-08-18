@@ -15,6 +15,8 @@ const routes = require('../routes.json');
  */
 function authentificator(req, res, next)
 {
+	let found = false;
+
 	Object.keys(routes).forEach(function(key)
 	{
 		if (routes[key].route === req.route.path
@@ -30,16 +32,25 @@ function authentificator(req, res, next)
 				{
 					res.set('WWW-Authenticate', 'Basic realm="uplmg"');
 					res.status(403).send('');
+					found = true;
 					return;
 				}
 				else
+				{
+					found = true;
 					return next();
+				}
 			}
 			else
+			{
+				found = true;
 				return next();
+			}
 		}
 	});
-	res.status(404).send('');
+
+	if (!found)
+		res.status(404).send('');
 }
 
 module.exports = authentificator;
